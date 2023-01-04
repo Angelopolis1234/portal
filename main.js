@@ -111,7 +111,7 @@ app.get('/deleteProduct', (req, res) => {
 
 app.get('/editProduct', (req, res) => {
 	let data = {
-		id: req.query.id_producto,
+		id: req.query.id,
 		nombre: req.query.nombre,
 		descripcion: req.query.descripcion,
 		precio: req.query.precio,
@@ -119,7 +119,7 @@ app.get('/editProduct', (req, res) => {
 	}
 	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.descripcion}, ${data.precio}`);
 	if (data.password === password) {
-		const sql = 'UPDATE producto SET nombre=' + data.nombre + ', descripcion=' + data.descripcion + ', precio=' + data.precio + ' WHERE id_product=' + data.id;
+		const sql = 'UPDATE producto SET nombre=\'' + data.nombre + '\', descripcion=\'' + data.descripcion + '\', precio=' + data.precio + ' WHERE id_product=' + data.id;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
