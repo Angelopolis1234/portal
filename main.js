@@ -161,9 +161,12 @@ app.get('/addEmpleado', (req, res) => {
 		horario: req.query.horario,
 		password: req.query.password
 	}
+	let fecha = data.ingreso.split('-');
+	fecha[1] = fecha[1].padStart(2, '0');
+	fecha[2] = fecha[2].padStart(2, '0');
 	console.log(`[API] :: Data fetched: ${data.nombre}, ${data.apellidop}, ${data.apellidom}, ${data.direccion}, ${data.telefono}, ${data.correo}, ${data.salario}, ${data.cargo}, ${data.ingreso}, ${data.horario}`);
 	if (data.password === password) {
-		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\'${data.nombre}\',\'${data.apellidop}\',\'${data.apellidom}\',\'${data.direccion}\',\'${data.telefono}\',\'${data.correo}\',${data.salario},\'${data.cargo}\',\'${data.ingreso}\',${data.horario})`
+		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\'${data.nombre}\',\'${data.apellidop}\',\'${data.apellidom}\',\'${data.direccion}\',\'${data.telefono}\',\'${data.correo}\',${data.salario},\'${data.cargo}\',\'${fecha[0]}-${fecha[1]}-${fecha[2]}\',${data.horario})`
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
