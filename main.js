@@ -163,7 +163,7 @@ app.get('/addEmpleado', (req, res) => {
 	}
 	console.log(`[API] :: Data fetched: ${data.nombre}, ${data.apellidop}, ${data.apellidom}, ${data.direccion}, ${data.telefono}, ${data.correo}, ${data.salario}, ${data.cargo}, ${data.ingreso}, ${data.horario}`);
 	if (data.password === password) {
-		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\'${data.nombre}\',\'${data.apellidop}\',\'${data.apellidom}\',\'${data.direccion}\',\'${data.telefono}\',\'${data.correo}\',${data.salario},\'${data.cargo}\',\'${data.fecha}\',${data.horario})`
+		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\'${data.nombre}\',\'${data.apellidop}\',\'${data.apellidom}\',\'${data.direccion}\',\'${data.telefono}\',\'${data.correo}\',${data.salario},\'${data.cargo}\',\'${data.ingreso}\',${data.horario})`
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
