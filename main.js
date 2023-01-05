@@ -192,9 +192,12 @@ app.get('/editEmpleado', (req, res) => {
 		horario: req.query.horario,
 		password: req.query.password
 	}
+	let fecha = data.ingreso.split('-');
+	fecha[1] = fecha[1].padStart(2, '0');
+	fecha[2] = fecha[2].padStart(2, '0');
 	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.apellidop}, ${data.apellidom}, ${data.direccion}, ${data.telefono}, ${data.correo}, ${data.salario}, ${data.cargo}, ${data.ingreso}, ${data.horario}`);
 	if (data.password === password) {
-		const sql = `UPDATE empleado SET nombre=\"${data.nombre}\", apellido_paterno=\"${data.apellidop}\", apellido_materno=\"${data.apellidom}\", direccion=\"${data.direccion}\", telefono=\"${data.telefono}\" ,correo=\"${data.correo}\", salario=${data.salario}, cargo=\"${data.cargo}\", fecha_ingreso=\"${data.ingreso}\",id_horario=${data.horario} WHERE num_empleado=${data.id}`;
+		const sql = `UPDATE empleado SET nombre=\"${data.nombre}\", apellido_paterno=\"${data.apellidop}\", apellido_materno=\"${data.apellidom}\", direccion=\"${data.direccion}\", telefono=\"${data.telefono}\" ,correo=\"${data.correo}\", salario=${data.salario}, cargo=\"${data.cargo}\", fecha_ingreso=\"${fecha[0]}-${fecha[1]}-${fecha[2]}\",id_horario=${data.horario} WHERE num_empleado=${data.id}`;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
