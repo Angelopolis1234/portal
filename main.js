@@ -56,6 +56,18 @@ app.get('/productos', (req, res) => {
 	});
 });
 
+app.get('/horarios', (req, res) => {
+	const sql = 'SELECT * FROM horario';
+	connection.query(sql, (err, results) => {
+		if (err) throw err;
+		if (results.length > 0) {
+			res.json(results);
+		} else {
+			res.send('No results');
+		}
+	});
+});
+
 app.get('/ordenes/:id', (req, res) => {
 	const { id } = req.params;
 	const sql = `SELECT nombre, precio FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto WHERE producto_to_orden.num_orden = ${id}`;
