@@ -92,7 +92,7 @@ app.get('/addProduct', (req, res) => {
 	let pass = (data.password === password);
 	console.log(pass + data.password + ' ' + password);
 	if (data.password === password) {
-		const sql = 'INSERT INTO producto (nombre,descripcion, precio) VALUES (\'' + data.nombre + '\', ' + '\'' + data.descripcion + '\',' + data.precio + ')';
+		const sql = 'INSERT INTO producto (nombre,descripcion, precio) VALUES (\"' + data.nombre + '\", ' + '\"' + data.descripcion + '\",' + data.precio + ')';
 		console.log(`[API]:: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
@@ -131,7 +131,7 @@ app.get('/editProduct', (req, res) => {
 	}
 	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.descripcion}, ${data.precio}`);
 	if (data.password === password) {
-		const sql = 'UPDATE producto SET nombre=\'' + data.nombre + '\', descripcion=\'' + data.descripcion + '\', precio=' + data.precio + ' WHERE id_producto=' + data.id;
+		const sql = 'UPDATE producto SET nombre=\"' + data.nombre + '\", descripcion=\"' + data.descripcion + '\", precio=' + data.precio + ' WHERE id_producto=' + data.id;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
@@ -166,7 +166,7 @@ app.get('/addEmpleado', (req, res) => {
 	fecha[2] = fecha[2].padStart(2, '0');
 	console.log(`[API] :: Data fetched: ${data.nombre}, ${data.apellidop}, ${data.apellidom}, ${data.direccion}, ${data.telefono}, ${data.correo}, ${data.salario}, ${data.cargo}, ${data.ingreso}, ${data.horario}`);
 	if (data.password === password) {
-		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\'${data.nombre}\',\'${data.apellidop}\',\'${data.apellidom}\',\'${data.direccion}\',\'${data.telefono}\',\'${data.correo}\',${data.salario},\'${data.cargo}\',\'${fecha[0]}-${fecha[1]}-${fecha[2]}\',${data.horario})`
+		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\"${data.nombre}\",\"${data.apellidop}\",\"${data.apellidom}\",\"${data.direccion}\",\"${data.telefono}\",\"${data.correo}\",${data.salario},\"${data.cargo}\",\"${fecha[0]}-${fecha[1]}-${fecha[2]}\",${data.horario})`
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
@@ -194,7 +194,7 @@ app.get('/editEmpleado', (req, res) => {
 	}
 	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.apellidop}, ${data.apellidom}, ${data.direccion}, ${data.telefono}, ${data.correo}, ${data.salario}, ${data.cargo}, ${data.ingreso}, ${data.horario}`);
 	if (data.password === password) {
-		const sql = `UPDATE empleado SET nombre=\'${data.nombre}\', apellido_paterno=\'${data.apellidop}\', apellido_materno=\'${data.apellidom}\', direccion=\'${data.direccion}\', telefono=\'${data.telefono}\' ,correo=\'${data.correo}\', salario=${data.salario}, cargo=\'${data.cargo}\', fecha_ingreso=\'${data.ingreso}\',id_horario=${data.horario} WHERE num_empleado=${data.id}`;
+		const sql = `UPDATE empleado SET nombre=\"${data.nombre}\", apellido_paterno=\"${data.apellidop}\", apellido_materno=\"${data.apellidom}\", direccion=\"${data.direccion}\", telefono=\"${data.telefono}\" ,correo=\"${data.correo}\", salario=${data.salario}, cargo=\"${data.cargo}\", fecha_ingreso=\"${data.ingreso}\",id_horario=${data.horario} WHERE num_empleado=${data.id}`;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
