@@ -310,7 +310,6 @@ app.get('/ordenes/:id', (req, res) => {
 });
 
 app.get('/ordenes', (req, res) => {
-	const { id } = req.params;
 	const sql = `SELECT * FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto ORDER BY num_orden`;
 	connection.query(sql, (err, results) => {
 		if (err) throw err;
@@ -321,3 +320,32 @@ app.get('/ordenes', (req, res) => {
 		}
 	});
 });
+
+app.post('/delete-orden', (req, res) => {
+	data = req.body;
+	deleteProdOrd(data.num_orden)
+	.then(result => {
+		let query = `DELETE FROM orden WHERE num_orden=${data.num_orden}`;
+		connection.query(query, (err) => {
+			if(err) throw err;
+			else res.send('ok');
+		});
+	})
+});
+
+const deleteProdOrd = ( num_orden ) =>{
+	return new Promise((resolve, reject) => {
+		let query = `DELETE FROM producto_to_orden WHERE num_orden=${num_orden}`;
+		connection.query(query, (err) => {if (err) reject(false)});
+		resolve(true);
+	})
+}
+
+app.post('/add-producto-orden', (req, res) => {
+	data = req.body;
+	let query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES(${data.id_producto},${data.num_orden})`;
+	connection.query(query, (err) => {
+		if(err) throw err;
+    else res.send('ok');
+	});
+})
