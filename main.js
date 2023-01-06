@@ -243,7 +243,7 @@ app.post('/ordenar', (req, res) => {
 	connection.query(query, (err,results) => {
 		if (err) throw err;
     else {
-			id_orden = results;
+			id_orden = JSON(results);
 		}
 	});
 	console.log(`[API] :: QUERY -> ${query}`);
