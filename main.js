@@ -240,7 +240,7 @@ app.post('/ordenar', (req, res) => {
 	let ids = data.map(item => item.id_producto);
 	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
 	let id_orden = connection.query(query);
-	console.log(`[API] :: QUERY -> ${query} :: ${id_orden}`);
+	console.log(`[API] :: QUERY -> ${query} :: ${JSON.stringify(id_orden)}`);
 	/*connection.query(query, (err, results) => {
 		if (err) throw err;
 	});
