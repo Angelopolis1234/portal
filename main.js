@@ -267,7 +267,7 @@ connection.query(query, (err,results,fields) => {
 	if (err) throw err;
 	else {
 		results.forEach(element => {
-			console.log(element);
+			console.log(element.num_orden);
 		});
 	}
 });
