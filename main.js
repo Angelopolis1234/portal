@@ -249,7 +249,7 @@ app.post('/ordenar', (req, res) => {
 	let id_orden;
 	getIdOrden(query)
 	.then(result => {
-		id_orden = result;
+		id_orden = result.num_orden;
 		console.log(id_orden);
 	})
 	console.log(`[API] :: QUERY -> ${query}`);
