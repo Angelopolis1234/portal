@@ -236,7 +236,7 @@ app.get('/deleteEmpleado', (req, res) => {
 app.post('/ordenar', (req, res) => {
 	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
 	let data = req.body;
-	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].hora}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
+	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
 	console.log(`[API] :: QUERY -> ${query}`);
 	res.send('OK');
 });
