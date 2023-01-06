@@ -81,6 +81,10 @@ app.get('/ordenes/:id', (req, res) => {
 	});
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Administracion de productos
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 app.get('/addProduct', (req, res) => {
 	let data = {
 		nombre: req.query.nombre,
@@ -274,4 +278,33 @@ app.post('/terminarOrden', (req, res) => {
 		res.send('OK');
 	});
 	res.send('OK');
+});
+
+
+//Para tener las ordenes sin terminar es: SELECT * FROM orden WHERE terminada=0
+//Para los productos dentro de la orden es: /ordenes/:id en donde :id es el numero de orden
+
+app.get('/get-ordenes-abiertas', (req, res) => {
+	let query = `SELECT * FROM orden WHERE terminada=0`;
+	connection.query(query, (err, results) => {
+		if (err) throw err;
+		if (results.length > 0) {
+			res.json(results);
+		} else {
+			res.send('No results');
+		}
+	});
+})
+
+app.get('/ordenes/:id', (req, res) => {
+	const { id } = req.params;
+	const sql = `SELECT * FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto WHERE producto_to_orden.num_orden = ${id}`;
+	connection.query(sql, (err, results) => {
+		if (err) throw err;
+		if (results.length > 0) {
+			res.json(results);
+		} else {
+			res.send('No results');
+		}
+	});
 });
