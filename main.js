@@ -232,24 +232,27 @@ app.get('/deleteEmpleado', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Handle de post de Ordenes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-app.post('/ordenar', (req, res) => {
-	getIdOrden();
-	const getIdOrden = async () => {
-		console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
-		let data = req.body;
-		let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
-		let ids = data.map(item => item.id_producto);
-		query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
-		let id_orden;
-		console.log(`[API] :: QUERY -> ${query}`);
-		let aux = await connection.query(query, (err, result, fields) => {
-			if (err) throw err;
-			return result;
+const getIdOrden = () => {
+	return new Promise((resolve, reject) => {
+		connection.query(query, (err,result,fields) => {
+			if (err) reject(err);
+      resolve(result);
 		});
-		id_orden = aux.num_orden;
-		res.send('OK');
-	}
+	})
+}
+app.post('/ordenar', (req, res) => {
+	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
+	let data = req.body;
+	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
+	let ids = data.map(item => item.id_producto);
+	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
+	let id_orden;
+	getIdOrden()
+	.then(result => {
+		id_orden = result;
+		console.log(id_orden);
+	})
+	console.log(`[API] :: QUERY -> ${query}`);
 	/*connection.query(query, (err, results) => {
 		if (err) throw err;
 	});
@@ -258,5 +261,6 @@ app.post('/ordenar', (req, res) => {
 		console.log(`[API] :: QUERY -> ${query}`);
 		connection.
 	}*/
-});
 
+	res.send('OK');
+});
