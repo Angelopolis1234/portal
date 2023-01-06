@@ -262,14 +262,16 @@ app.post('/ordenar', (req, res) => {
 			});
 		}
 	})
-	/*connection.query(query, (err, results) => {
-		if (err) throw err;
-	});
-	for(let i=0; i<ids.length; i++){
-		query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${data[data.length - 1].num_orden})`;
-		console.log(`[API] :: QUERY -> ${query}`);
-		connection.
-	}*/
+	res.send('OK');
+});
 
+app.post('/terminarOrden', (req, res) => {
+	let data = req.body;
+	let query = `INSERT INTO nota(num_orden,forma_pago,propina,total) VALUES (${data.num_orden},${data.forma_pago},${data.propina},${data.total})`;
+	console.log(`[API] :: QUERY -> ${query}`);
+	connection.query(query, (err, results) => {
+		if (err) throw err;
+		res.send('OK');
+	});
 	res.send('OK');
 });
