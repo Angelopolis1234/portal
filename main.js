@@ -254,8 +254,8 @@ app.post('/ordenar', (req, res) => {
 	getIdOrden(query)
 	.then(result => {
 		id_orden = result[0];
-		for (let i = 0; i < ids.length; i++) {
-			query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${data[data.length - 1].num_orden})`;
+		for (let i = 0; i < ids.length-1; i++) {
+			query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${id_orden})`;
 			console.log(`[API] :: QUERY -> ${query}`);
 			connection.query(query, (err, result) => {
 				if (err) throw err;
