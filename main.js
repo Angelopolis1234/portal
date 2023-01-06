@@ -45,7 +45,7 @@ app.get('/empleado', (req, res) => {
 });
 
 app.get('/productos', (req, res) => {
-	const sql = 'SELECT * FROM producto';
+	const sql = 'SELECT * FROM producto order by categoria';
 	connection.query(sql, (err, results) => {
 		if (err) throw err;
 		if (results.length > 0) {
