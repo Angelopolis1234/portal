@@ -232,7 +232,7 @@ app.get('/deleteEmpleado', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Handle de post de Ordenes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const getIdOrden = () => {
+const getIdOrden = (query) => {
 	return new Promise((resolve, reject) => {
 		connection.query(query, (err,result,fields) => {
 			if (err) reject(err);
@@ -247,7 +247,7 @@ app.post('/ordenar', (req, res) => {
 	let ids = data.map(item => item.id_producto);
 	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
 	let id_orden;
-	getIdOrden()
+	getIdOrden(query)
 	.then(result => {
 		id_orden = result;
 		console.log(id_orden);
