@@ -248,6 +248,7 @@ app.post('/ordenar', (req, res) => {
 			return result;
 		});
 		id_orden = aux.num_orden;
+		res.send('OK');
 	}
 	/*connection.query(query, (err, results) => {
 		if (err) throw err;
@@ -257,6 +258,5 @@ app.post('/ordenar', (req, res) => {
 		console.log(`[API] :: QUERY -> ${query}`);
 		connection.
 	}*/
-
-	res.send('OK');
 });
+
