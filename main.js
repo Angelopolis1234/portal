@@ -236,7 +236,7 @@ const getIdOrden = (query) => {
 	return new Promise((resolve, reject) => {
 		connection.query(query, (err,result,fields) => {
 			if (err) reject(err);
-      resolve(result.JSON);
+      resolve(result.map(field => field.num_orden));
 		});
 	})
 }
