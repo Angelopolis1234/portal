@@ -86,13 +86,14 @@ app.get('/addProduct', (req, res) => {
 		nombre: req.query.nombre,
 		descripcion: req.query.descripcion,
 		precio: req.query.precio,
+		categoria: req.query.categoria,
 		password: req.query.password
 	};
-	console.log(`[API] :: Data fetched: ${data.nombre}, ${data.descripcion}, ${data.precio} :: from post`);
+	console.log(`[API] :: Data fetched: ${data.nombre}, ${data.descripcion}, ${data.precio}, ${data.categoria} :: from post`);
 	let pass = (data.password === password);
 	console.log(pass + data.password + ' ' + password);
 	if (data.password === password) {
-		const sql = 'INSERT INTO producto (nombre,descripcion, precio) VALUES (\"' + data.nombre + '\", ' + '\"' + data.descripcion + '\",' + data.precio + ')';
+		const sql = 'INSERT INTO producto (nombre,descripcion,precio,categoria) VALUES (\"' + data.nombre + '\", ' + '\"' + data.descripcion + '\",' + data.precio + '\'' + data.categoria + '\'' +')';
 		console.log(`[API]:: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
@@ -127,11 +128,12 @@ app.get('/editProduct', (req, res) => {
 		nombre: req.query.nombre,
 		descripcion: req.query.descripcion,
 		precio: req.query.precio,
+		categoria: req.query.categoria,
 		password: req.query.password
 	}
-	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.descripcion}, ${data.precio}`);
+	console.log(`[API] :: Data fetched: ${data.id}, ${data.nombre}, ${data.descripcion}, ${data.precio}, ${data.categoria}`);
 	if (data.password === password) {
-		const sql = 'UPDATE producto SET nombre=\"' + data.nombre + '\", descripcion=\"' + data.descripcion + '\", precio=' + data.precio + ' WHERE id_producto=' + data.id;
+		const sql = 'UPDATE producto SET nombre=\"' + data.nombre + '\", descripcion=\"' + data.descripcion + '\", precio=' + data.precio + 'categoria=\'' + data.categoria + '\' WHERE id_producto=' + data.id;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
 			if (err) throw err;
