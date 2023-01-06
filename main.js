@@ -234,20 +234,20 @@ app.get('/deleteEmpleado', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post('/ordenar', (req, res) => {
-	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
-	let data = req.body;
-	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
-	let ids = data.map(item => item.id_producto);
-	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
-	let id_orden;
-	console.log(`[API] :: QUERY -> ${query}`);
-	console.log(getIdOrden());
-
 	const getIdOrden = async () => {
-		id_orden = await connection.query(query, (err,result,fields) => {
+		console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
+		let data = req.body;
+		let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
+		let ids = data.map(item => item.id_producto);
+		query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
+		let id_orden;
+		console.log(`[API] :: QUERY -> ${query}`);
+		console.log(getIdOrden());
+		let aux = await connection.query(query, (err, result, fields) => {
 			if (err) throw err;
-      return result.num_orden;
+			return result;
 		});
+		id_orden = aux.num_orden;
 	}
 	/*connection.query(query, (err, results) => {
 		if (err) throw err;
