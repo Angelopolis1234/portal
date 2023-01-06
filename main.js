@@ -238,7 +238,10 @@ app.post('/ordenar', (req, res) => {
 	let data = req.body;
 	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
 	let ids = data.map(item => item.id_producto);
-	console.log('[API] :: IDS -> ' + ids);
-	console.log(`[API] :: QUERY -> ${query}`);
+	console.log(`[API] :: QUERY -> ${query}\nIds len: ${ids.length}`);
+	/*connection.query(query, (err, results) => {
+		if (err) throw err;
+	});*/
+
 	res.send('OK');
 });
