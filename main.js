@@ -250,6 +250,7 @@ app.post('/ordenar', (req, res) => {
 	getIdOrden(query)
 	.then(result => {
 		id_orden = result.num_orden;
+		console.log(result);
 		console.log(id_orden);
 	})
 	console.log(`[API] :: QUERY -> ${query}`);
