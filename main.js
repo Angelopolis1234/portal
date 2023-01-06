@@ -238,7 +238,7 @@ app.post('/ordenar', (req, res) => {
 	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
 	let data = req.body;
 	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
-	let ids = data.map(item => item.id_producto);
-	console.log('[API] :: IDS -> ' + ids);
+	//let ids = data.map(item => item.id_producto);
+	//console.log('[API] :: IDS -> ' + ids);
 	console.log(`[API] :: QUERY -> ${query}`);
 });
