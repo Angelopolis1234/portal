@@ -234,6 +234,6 @@ app.get('/deleteEmpleado', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post('/ordenar', (req, res) => {
-	console.log(`[API]:: datos obtenidos: ${req.body}`);
+	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
 	res.send('OK');
 });
