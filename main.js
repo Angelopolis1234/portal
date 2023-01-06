@@ -236,7 +236,7 @@ const getIdOrden = (query) => {
 	return new Promise((resolve, reject) => {
 		connection.query(query, (err,result,fields) => {
 			if (err) reject(err);
-      resolve(result);
+      resolve(result.num_orden);
 		});
 	})
 }
@@ -249,7 +249,7 @@ app.post('/ordenar', (req, res) => {
 	let id_orden;
 	getIdOrden(query)
 	.then(result => {
-		id_orden = result.num_orden;
+		id_orden = result;
 		console.log(result);
 		console.log(id_orden);
 	})
