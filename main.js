@@ -234,6 +234,7 @@ app.get('/deleteEmpleado', (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.post('/ordenar', (req, res) => {
+	getIdOrden();
 	const getIdOrden = async () => {
 		console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
 		let data = req.body;
@@ -242,7 +243,6 @@ app.post('/ordenar', (req, res) => {
 		query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
 		let id_orden;
 		console.log(`[API] :: QUERY -> ${query}`);
-		console.log(getIdOrden());
 		let aux = await connection.query(query, (err, result, fields) => {
 			if (err) throw err;
 			return result;
