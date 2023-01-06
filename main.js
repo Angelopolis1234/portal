@@ -243,8 +243,8 @@ app.post('/ordenar', (req, res) => {
 	connection.query(query, (err,results,fields) => {
 		if (err) throw err;
     else {
-			results.array.forEach(element => {
-				console.log(element);
+			results.forEach(element => {
+				console.log(element.num_orden);
 			});
 		}
 	});
@@ -260,14 +260,4 @@ app.post('/ordenar', (req, res) => {
 	}*/
 
 	res.send('OK');
-});
-
-let query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
-connection.query(query, (err,results,fields) => {
-	if (err) throw err;
-	else {
-		results.forEach(element => {
-			console.log(element.num_orden);
-		});
-	}
 });
