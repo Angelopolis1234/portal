@@ -238,7 +238,7 @@ app.post('/ordenar', (req, res) => {
 	let data = req.body;
 	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
 	let ids = data.map(item => item.id_producto);
-	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 12:10:00\'`;
+	query = `SELECT num_orden FROM orden WHERE mesa=3 AND mesero=1 AND hora=\'2022-12-20 11:50:00\'`;
 	let id_orden = connection.query(query);
 	console.log(`[API] :: QUERY -> ${query} :: ${id_orden}`);
 	/*connection.query(query, (err, results) => {
