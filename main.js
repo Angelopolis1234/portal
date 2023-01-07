@@ -246,27 +246,31 @@ const getIdOrden = (query) => {
 }
 
 app.post('/ordenar', (req, res) => {
-	console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
-	let data = req.body;
-	let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
-	let ids = data.map(item => item.id_producto);
-	connection.query(query, (err, results) => {
-		if (err) throw err;
-	});
-	query = `SELECT num_orden FROM orden WHERE mesa=${data[data.length - 1].mesa} AND mesero=${data[data.length - 1].mesero} AND hora=\'${data[data.length - 1].tiempo}\'`;
-	let id_orden;
-	getIdOrden(query)
-	.then(result => {
-		id_orden = result[0];
-		for (let i = 0; i < ids.length-1; i++) {
-			query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${id_orden})`;
-			console.log(`[API] :: QUERY -> ${query}`);
-			connection.query(query, (err, result) => {
-				if (err) throw err;
-			});
-		}
-	})
-	res.send('OK');
+	try{
+		console.log(`[API]:: datos obtenidos: ${JSON.stringify(req.body)}`);
+		let data = req.body;
+		let query = `INSERT INTO orden(hora,mesa,personas,mesero) VALUES (\"${data[data.length - 1].tiempo}\",${data[data.length - 1].mesa},${data[data.length - 1].personas},${data[data.length - 1].mesero})`;
+		let ids = data.map(item => item.id_producto);
+		connection.query(query, (err, results) => {
+			if (err) throw err;
+		});
+		query = `SELECT num_orden FROM orden WHERE mesa=${data[data.length - 1].mesa} AND mesero=${data[data.length - 1].mesero} AND hora=\'${data[data.length - 1].tiempo}\'`;
+		let id_orden;
+		getIdOrden(query)
+			.then(result => {
+				id_orden = result[0];
+				for (let i = 0; i < ids.length - 1; i++) {
+					query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${id_orden})`;
+					console.log(`[API] :: QUERY -> ${query}`);
+					connection.query(query, (err, result) => {
+						if (err) throw err;
+					});
+				}
+			})
+		res.send('OK');
+	}catch(err){
+		res.send('Datos inválidos!');
+	}
 });
 
 app.post('/terminarOrden', (req, res) => {
