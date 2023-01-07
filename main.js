@@ -20,7 +20,7 @@ var connection = mysql.createConnection({
 
 //Cheking connection
 connection.connect(error => {
-	if (error) throw error;
+	if (error) console.log(err);
 	console.log('[BD]:: Connection successful');
 });
 app.listen(PORT, () => console.log(`[API]::Server running on port ${PORT}`));
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 app.get('/empleado', (req, res) => {
 	const sql = 'SELECT * FROM empleado';
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -47,7 +47,7 @@ app.get('/empleado', (req, res) => {
 app.get('/productos', (req, res) => {
 	const sql = 'SELECT * FROM producto order by categoria';
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -59,7 +59,7 @@ app.get('/productos', (req, res) => {
 app.get('/horarios', (req, res) => {
 	const sql = 'SELECT * FROM horario';
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -72,7 +72,7 @@ app.get('/ordenes/:id', (req, res) => {
 	const { id } = req.params;
 	const sql = `SELECT nombre, precio FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto WHERE producto_to_orden.num_orden = ${id}`;
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -100,7 +100,7 @@ app.get('/addProduct', (req, res) => {
 		const sql = 'INSERT INTO producto (nombre,descripcion,precio,categoria) VALUES (\"' + data.nombre + '\", ' + '\"' + data.descripcion + '\",' + data.precio + '\'' + data.categoria + '\'' +')';
 		console.log(`[API]:: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
-			if (err) throw err;
+			if (err) console.log(err);
 			else res.send('Producto Agregado');
 		});
 	} else {
@@ -118,7 +118,7 @@ app.get('/deleteProduct', (req, res) => {
 		const sql = 'DELETE FROM producto WHERE id_producto = ' + data.id;
 		console.log('[API] :: QUERY -> ' + sql);
 		connection.query(sql, (err, results) => {
-			if (err) throw err;
+			if (err) console.log(err);
 			else res.send('Producto Eliminado')
 		});
 	} else {
@@ -140,7 +140,7 @@ app.get('/editProduct', (req, res) => {
 		const sql = 'UPDATE producto SET nombre=\"' + data.nombre + '\", descripcion=\"' + data.descripcion + '\", precio=' + data.precio + ', categoria=\'' + data.categoria + '\' WHERE id_producto=' + data.id;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
-			if (err) throw err;
+			if (err) console.log(err);
 			else res.send('Producto Editado');
 		});
 	}else{
@@ -175,7 +175,7 @@ app.get('/addEmpleado', (req, res) => {
 		const sql = `INSERT INTO empleado(nombre,apellido_paterno,apellido_materno,direccion,telefono,correo,salario,cargo,fecha_ingreso,id_horario) VALUES (\"${data.nombre}\",\"${data.apellidop}\",\"${data.apellidom}\",\"${data.direccion}\",\"${data.telefono}\",\"${data.correo}\",${data.salario},\"${data.cargo}\",\"${fecha[0]}-${fecha[1]}-${fecha[2]}\",${data.horario})`
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
-			if (err) throw err;
+			if (err) console.log(err);
 			else res.send('Empleado Agregado');
 		});
 	}else{
@@ -206,7 +206,7 @@ app.get('/editEmpleado', (req, res) => {
 		const sql = `UPDATE empleado SET nombre=\"${data.nombre}\", apellido_paterno=\"${data.apellidop}\", apellido_materno=\"${data.apellidom}\", direccion=\"${data.direccion}\", telefono=\"${data.telefono}\" ,correo=\"${data.correo}\", salario=${data.salario}, cargo=\"${data.cargo}\", fecha_ingreso=\"${fecha[0]}-${fecha[1]}-${fecha[2]}\",id_horario=${data.horario} WHERE num_empleado=${data.id}`;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
-			if (err) throw err;
+			if (err) console.log(err);
 			else res.send('Empleado Editado Correctamente');
 		});
 	}else{
@@ -224,7 +224,7 @@ app.get('/deleteEmpleado', (req, res) => {
 		const sql = `DELETE FROM empleado WHERE num_empleado=${data.id}`;
 		console.log(`[API] :: QUERY -> ${sql}`);
 		connection.query(sql, (err, results) => {
-			if(err) throw err;
+			if(err) console.log(err);
 			else res.send('Empleado eliminado	correctamente');
 		});
 	}else{
@@ -278,7 +278,7 @@ app.post('/terminarOrden', (req, res) => {
 	let query = `INSERT INTO nota(num_orden,forma_pago,propina,total) VALUES (${data.num_orden},${data.forma_pago},${data.propina},${data.total})`;
 	console.log(`[API] :: QUERY -> ${query}`);
 	connection.query(query, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		res.send('OK');
 	});
 	res.send('OK');
@@ -291,7 +291,7 @@ app.post('/terminarOrden', (req, res) => {
 app.get('/get-ordenes-abiertas', (req, res) => {
 	let query = `SELECT * FROM orden WHERE terminada=0`;
 	connection.query(query, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -304,7 +304,7 @@ app.get('/ordenes/:id', (req, res) => {
 	const { id } = req.params;
 	const sql = `SELECT * FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto WHERE producto_to_orden.num_orden = ${id}`;
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -316,7 +316,7 @@ app.get('/ordenes/:id', (req, res) => {
 app.get('/ordenes', (req, res) => {
 	const sql = `SELECT * FROM producto INNER JOIN producto_to_orden ON producto.id_producto = producto_to_orden.id_producto ORDER BY num_orden`;
 	connection.query(sql, (err, results) => {
-		if (err) throw err;
+		if (err) console.log(err);
 		if (results.length > 0) {
 			res.json(results);
 		} else {
@@ -331,7 +331,7 @@ app.post('/delete-orden', (req, res) => {
 	.then(result => {
 		let query = `DELETE FROM orden WHERE num_orden=${data.num_orden}`;
 		connection.query(query, (err) => {
-			if(err) throw err;
+			if(err) console.log(err);
 			else res.send('ok');
 		});
 	})
@@ -349,7 +349,7 @@ app.post('/add-producto-orden', (req, res) => {
 	data = req.body;
 	let query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES(${data.id_producto},${data.num_orden})`;
 	connection.query(query, (err) => {
-		if(err) throw err;
+		if(err) console.log(err);
     else res.send('ok');
 	});
 })
