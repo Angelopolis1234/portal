@@ -263,7 +263,7 @@ app.post('/ordenar', (req, res) => {
 					query = `INSERT INTO producto_to_orden(id_producto,num_orden) VALUES (${ids[i]},${id_orden})`;
 					console.log(`[API] :: QUERY -> ${query}`);
 					connection.query(query, (err, result) => {
-						if (err) throw err;
+						if (err) console.log(err);
 					});
 				}
 			})
